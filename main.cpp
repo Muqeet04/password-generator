@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <string>
 using namespace std ;
 void passsave(string &pass){
 	ofstream outFile("pass.txt",ios::app);
@@ -14,14 +15,11 @@ void passsave(string &pass){
 }
 void passgen(string &pass,string charc,int lenght){
 	int len=0;
-	int size=charc.length();
+	int size=static_cast<int>(charc.length());
+	if (size == 0 || lenght <= 0) return;
 	int n;
 	while(len<lenght){
-		n=rand();
-		if(n<0||n>88)
-		{
-			continue;
-		}
+		n=rand() % size;
 		pass=charc[n]+pass;
 		len++;
 	}
@@ -58,8 +56,12 @@ int main(){
 	switch(op){
 		case 'n':
 		case 'N':{
-				cout<<"Enter the Minimum lenght of password you want : ";
+				cout<<"Enter the length of password you want : ";
             	cin>>len;
+	            if (!cin || len <= 0 || len > 4096) {
+	                cerr << "Password length must be a number from 1 to 4096." << endl;
+	                return 1;
+	            }
 	            passgen(pass,charc,len);
 	            cout<<endl<<"Your password is : "<<pass;
 			break;
