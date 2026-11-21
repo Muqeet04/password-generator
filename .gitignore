@@ -1,0 +1,12 @@
+# Build output
+*.exe
+*.o
+
+# Dev-C++ project files
+*.dev
+*.layout
+Makefile.win
+
+# Generated passwords
+pass
+pass.txt
